@@ -1,50 +1,107 @@
+#include <stdarg.h>
+#include <unistd.h>
 #include "holberton.h"
+/**
+ *_strlen- Gets the length of a string
+ *@s: string
+ *
+ *return:Length of a string
+ */
+
+int _strlen(char *s)
+{
+
+int length = 0;
+
+while (*s)
+{
+s++;
+length++;
+}
+return (length);
+}
 
 /**
-  *_printf - display something on the output screen
-  *@format: the sring that we are going to print
-  *Return: The length og the string
-  */
-int _printf(const char *format, ...)
+ *pr_str- A function that prints a string
+ *@arg:The string
+ *Return: number of strings
+ */
+int print_str(va_list arg)
 {
-int i = 0, j, executed = 0;
-va_list string;
-printer_t funcs[] = {{'c', pr_char}, {'i', pr_int}, {'d', pr_uns},
-{'s', pr_str}, {'%', pr_per}, {'b', pr_bin}};
-va_start(string, format);
-if (format == NULL)
-return (-1);
-while (format != NULL && *format)
+char *s;
+int i = 0;
+s = va_arg(arg, char *);
+if (s == NULL)
 {
-if (*format != '%' && format != NULL && *format)
+s = "(null)";
+}
+while (s[i] != '\0')
 {
-_putchar(*format);
-format++;
+_putchar(s[i]);
 i++;
 }
-else if (*format == '%' && format != NULL && *format)
-{
-if (!*(format + 1))
-return (-1);
-format++, j = 0, executed = 0;
-while (funcs[j].symbol)
-{
-if (*format == funcs[j].symbol)
-{
-i += funcs[j].print(string);
-executed = 1;
-}
-j++;
-}
-if (executed == 0)
-{
-_putchar('%');
-_putchar(*format);
-i += 2;
-}
-format++;
-}
-}
-va_end(string);
 return (i);
+}
+
+/**
+ *_printf- Prints anything to output
+ *@format:Parameter 1
+ *@...:Variable number of arguements
+ *Return: Length
+ */
+
+int _printf(const char *format, ...)
+{
+int i = 0;
+int length = 0;
+char char_arg;
+char *string_arg;
+va_list arguments;
+int j;
+
+va_start(arguments, format);
+if (format == NULL)
+return (-1);
+while (*(format + i))
+{
+if ((*(format + i)) != '%')
+{
+  if (write(1, format + i, 1) == -1)
+  return (-1);
+  length++;
+}
+else
+{
+i += 1;
+switch (*(format + i))
+{
+case 'c':
+char_arg = va_arg(arguments, int);
+
+j = write(1, &char_arg, 1);
+if (j == -1)
+return (-1);
+length++;
+break;
+case 's':
+string_arg = va_arg(arguments, char *);
+j = write(1, string_arg, _strlen(string_arg));
+if (j == -1)
+return (-1);
+length += j;
+if (write(1, format + i, 1) == -1)
+return (-1);
+length++;
+break;
+case '%':
+j = write(1, &("%"), 1);
+if (j == -1)
+return (-1);
+length++;
+break;
+}
+}
+i++;
+}
+return (length);
 }
