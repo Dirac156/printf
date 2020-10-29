@@ -65,25 +65,26 @@ return (1);
 
 int _printf(const char *format, ...)
 {
-int i = 0;
 int length = 0;
 va_list arguments;
 int j;
 va_start(arguments, format);
 if (format == NULL)
 return (-1);
-while (*(format + i))
+while (*(format))
 {
-if ((*(format + i)) != '%')
+if (*format != '%')
 {
-if (write(1, format + i, 1) == -1)
+if (write(1, format, 1) == -1)
 return (-1);
 length++;
 }
 else
 {
-i += 1;
-switch (*(format + i))
+format++;
+if (!*(format))
+return (-1);
+switch (*format)
 {
 case 'c':
 length += print_char(arguments);
@@ -99,7 +100,7 @@ length++;
 break;
 }
 }
-i++;
+format++;
 }
 return (length);
 }
