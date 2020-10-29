@@ -93,7 +93,7 @@ while (mult > 0)
 {
 one_dig = number / mult;
 _putchar(one_dig + '0');
-number = number - (one_dig *mult);
+number = number % mult;
 mult = mult / 10;
 i++;
 }
