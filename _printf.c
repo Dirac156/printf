@@ -112,9 +112,10 @@ return (i);
 
 int _printf(const char *format, ...)
 {
-int length = 0;
+int length = 0, checkflag = 0;
 va_list arguments;
-int j;
+int j, i = 0;
+char flag[] = {'c', 's', 'd', 'i', '%'};
 va_start(arguments, format);
 if (format == NULL)
 return (-1);
@@ -128,7 +129,14 @@ length++;
 }
 else
 {
+while (flag[i] != '\0')
+{
+if (*(format + 1) == flag[i++])
+checkflag = 1;
+}
 format++;
+if (checkflag == 1)
+{
 if (!*(format))
 return (-1);
 switch (*format)
@@ -151,6 +159,13 @@ break;
 case 'i':
 length += print_number(arguments);
 break;
+}
+}
+else
+{
+_putchar('%');
+_putchar(*format);
+length++;
 }
 }
 format++;
