@@ -55,7 +55,6 @@ int _printf(const char *format, ...)
 int i = 0;
 int length = 0;
 char char_arg;
-char *string_arg;
 va_list arguments;
 int j;
 
@@ -66,9 +65,9 @@ while (*(format + i))
 {
 if ((*(format + i)) != '%')
 {
-  if (write(1, format + i, 1) == -1)
-  return (-1);
-  length++;
+if (write(1, format + i, 1) == -1)
+return (-1);
+length++;
 }
 else
 {
@@ -84,14 +83,7 @@ return (-1);
 length++;
 break;
 case 's':
-string_arg = va_arg(arguments, char *);
-j = write(1, string_arg, _strlen(string_arg));
-if (j == -1)
-return (-1);
-length += j;
-if (write(1, format + i, 1) == -1)
-return (-1);
-length++;
+length += print_str(arguments);
 break;
 case '%':
 j = write(1, &("%"), 1);
