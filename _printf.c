@@ -5,7 +5,7 @@
  *_strlen- Gets the length of a string
  *@s: string
  *
- *return:Length of a string
+ *Return:Length of a string
  */
 
 int _strlen(char *s)
@@ -22,7 +22,7 @@ return (length);
 }
 
 /**
- *pr_str- A function that prints a string
+ *print_str- A function that prints a string
  *@arg:The string
  *Return: number of strings
  */
@@ -44,6 +44,19 @@ return (i);
 }
 
 /**
+ *print_char- A function that prints a character
+ *@arg:The list that hold the character
+ *Return: number of strings
+ */
+int print_char(va_list arg)
+{
+char c;
+c = va_arg(arg, int);
+_putchar(c);
+return (1);
+}
+
+/**
  *_printf- Prints anything to output
  *@format:Parameter 1
  *@...:Variable number of arguements
@@ -54,10 +67,8 @@ int _printf(const char *format, ...)
 {
 int i = 0;
 int length = 0;
-char char_arg;
 va_list arguments;
 int j;
-
 va_start(arguments, format);
 if (format == NULL)
 return (-1);
@@ -75,12 +86,7 @@ i += 1;
 switch (*(format + i))
 {
 case 'c':
-char_arg = va_arg(arguments, int);
-
-j = write(1, &char_arg, 1);
-if (j == -1)
-return (-1);
-length++;
+length += print_char(arguments);
 break;
 case 's':
 length += print_str(arguments);
