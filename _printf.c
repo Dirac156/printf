@@ -147,7 +147,7 @@ if (!*format)
 return (-1);
 while (flag[i] != '\0')
 {
-if (*(format) == flag[i++])
+if (*format == flag[i++])
 checkflag = 1;
 }
 if (checkflag == 1)
@@ -156,6 +156,7 @@ else
 {
 _putchar('%');
 _putchar(*format);
+length++;
 length++;
 }
 }
