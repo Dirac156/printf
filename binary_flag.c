@@ -14,7 +14,10 @@ if (d < 0)
 return (-1);
 }
 else if (d == 0)
+{
 _putchar(0 + '0');
+_putchar('\n');
+}
 else
 i += return_binary(d);
 return (i);
