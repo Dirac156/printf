@@ -1,22 +1,36 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "holberton.h"
+
+
 /**
- *_strlen- Gets the length of a string
- *@s: string
- *
- *Return:Length of a string
+ *handle_switch- Gets the length of a string
+ *@format: string
+ *@arguments: list of all argument
+ *Return:Length
  */
 
-int _strlen(char *s)
+int handle_switch(char format, va_list arguments)
 {
-
 int length = 0;
-
-while (*s)
+switch (format)
 {
-s++;
+case 'c':
+length += print_char(arguments);
+break;
+case 's':
+length += print_str(arguments);
+break;
+case '%':
+write(1, &("%"), 1);
 length++;
+break;
+case 'd':
+length += print_number(arguments);
+break;
+case 'i':
+length += print_number(arguments);
+break;
 }
 return (length);
 }
@@ -112,14 +126,13 @@ return (i);
 
 int _printf(const char *format, ...)
 {
-int length = 0, checkflag = 0;
+int length = 0, checkflag = 0, i = 0;
 va_list arguments;
-int j, i = 0;
 char flag[] = {'c', 's', 'd', 'i', '%'};
 va_start(arguments, format);
 if (format == NULL)
 return (-1);
-while (*(format))
+while (*format)
 {
 if (*format != '%')
 {
@@ -137,29 +150,9 @@ checkflag = 1;
 format++;
 if (checkflag == 1)
 {
-if (!*(format))
+if (!*format)
 return (-1);
-switch (*format)
-{
-case 'c':
-length += print_char(arguments);
-break;
-case 's':
-length += print_str(arguments);
-break;
-case '%':
-j = write(1, &("%"), 1);
-if (j == -1)
-return (-1);
-length++;
-break;
-case 'd':
-length += print_number(arguments);
-break;
-case 'i':
-length += print_number(arguments);
-break;
-}
+length += handle_switch(*format, arguments);
 }
 else
 {
