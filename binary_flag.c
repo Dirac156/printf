@@ -16,7 +16,7 @@ return (-1);
 else if (d == 0)
 {
 _putchar(0 + '0');
-_putchar('\n');
+_putchar(0 + '0');
 }
 else
 i += return_binary(d);
