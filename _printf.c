@@ -142,18 +142,16 @@ length++;
 }
 else
 {
-while (flag[i] != '\0')
-{
-if (*(format + 1) == flag[i++])
-checkflag = 1;
-}
 format++;
-if (checkflag == 1)
-{
 if (!*format)
 return (-1);
-length += handle_switch(*format, arguments);
+while (flag[i] != '\0')
+{
+if (*(format) == flag[i++])
+checkflag = 1;
 }
+if (checkflag == 1)
+length += handle_switch(*format, arguments);
 else
 {
 _putchar('%');
