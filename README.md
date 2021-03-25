@@ -1,8 +1,8 @@
 # Printf function
 
 **DESCRIPTION**
-print according to the format
-Return the lenght of the string printed
+* Print according to the format.
+* Return the lenght of the string printed.
 
 **Formatage**
 
