@@ -1,4 +1,4 @@
-#Printf function
+# Printf function
 
 **DESCRIPTION**
 print according to the format
@@ -17,5 +17,5 @@ c : To print a character
 % : To print the modulo signe
 
 **AUTHOR**
-Dirac Murairi Mukongya
-ISAIAH 
+* Dirac Murairi Mukongya
+* Isaiah Mlewa Ndara <mlewaisaiah@gmail.com> 
