@@ -16,6 +16,6 @@ c : To print a character
 
 % : To print the modulo signe
 
-**AUTHOR**
+**AUTHORS**
 * Dirac Murairi Mukongya
 * Isaiah Mlewa Ndara <mlewaisaiah@gmail.com> 
